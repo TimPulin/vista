@@ -1,0 +1,18 @@
+.content {
+  grid-area: content;
+  padding: 25px 10px 10px;
+  background-color: var(--color-content-background);
+  height: 500px;
+
+  &__title {
+    display: inline-block;
+    margin: 0;
+    padding: 6px 10px;
+    background-color: var(--color-site-border);
+    color: #fff;
+    font-family: Roboto;
+    font-size: 14px;
+    line-height: normal;
+
+  }
+}

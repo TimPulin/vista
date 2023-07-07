@@ -1,0 +1,17 @@
+:root {
+  --color-blue-dark: #303841;
+  --color-grey-regular: rgba(131, 131, 131, 0.17);
+  --color-site-border: var(--color-blue-dark);
+  --color-content-background: var(--color-grey-regular);
+  --border-radius-main: 5px;
+}
+
+body {
+  font-family: Roboto;
+  font-weight: 400;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 1400px;
+}
