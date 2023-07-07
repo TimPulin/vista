@@ -1,0 +1,73 @@
+.wrap-form {
+  padding: 10px 40px 10px 10px;
+  background-color: #fff;
+}
+
+.ant-form {
+  justify-content: space-between;
+  align-items: center;
+
+  .ant-form-item-label>label {
+    color: var(--color-text-secondary);
+  }
+
+  &__label {
+    position: absolute;
+    left: 13px;
+    font-size: 12px;
+    line-height: 12px;
+    letter-spacing: 0.15px;
+    color: var(--color-text-secondary);
+    transform: translateY(15px);
+    transition: transform .3s ease-in;
+  }
+
+  &__label--active {
+    transform: translateY(0);
+  }
+
+  &__group {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 12px;
+
+    .ant-form-item {
+      margin-right: 0;
+    }
+  }
+}
+
+.ant-form--rolodex {
+  .ant-picker {
+    padding: 9px 12px;
+    width: 224px;
+    border-radius: 4px 4px 0px 0px;
+    background: var(--light-other-filled-input-background, rgba(0, 0, 0, 0.06));
+  }
+
+  .ant-input,
+  .ant-input-number {
+    border: none;
+    border-radius: 2px;
+    background-color: var(--color-grey-light);
+  }
+
+  .ant-form-item--patient {
+    .ant-input {
+      width: 220px;
+    }
+  }
+
+  .ant-form-item--card-number {
+    .ant-input-number {
+      width: 240px;
+    }
+  }
+
+  .ant-btn {
+    margin-right: 0;
+  }
+
+
+}

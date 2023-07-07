@@ -1,0 +1,28 @@
+.App {
+  .ant-btn {
+    padding: 4px 21px;
+    border-radius: 2px;
+    font-family: Roboto;
+    font-size: 12px;
+  }
+
+  .ant-btn-secondary {
+    border-color: var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: #fff;
+
+
+  }
+
+  .ant-btn-default.ant-btn-secondary:hover {
+    background-color: var(--color-secondary-light);
+    border-color: var(--color-secondary-light);
+    color: #fff;
+  }
+
+  .ant-btn-default.ant-btn-secondary:active {
+    background-color: var(--color-secondary-shade);
+    border-color: var(--color-secondary-shade);
+    color: #fff;
+  }
+}

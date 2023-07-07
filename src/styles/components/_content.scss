@@ -1,18 +1,28 @@
+/* content */
+
 .content {
   grid-area: content;
+  position: relative;
   padding: 25px 10px 10px;
   background-color: var(--color-content-background);
   height: 500px;
 
   &__title {
     display: inline-block;
+    position: absolute;
+    top: 3px;
     margin: 0;
-    padding: 6px 10px;
+    padding: 3px 10px;
+
+    border-radius: var(--border-radius-main);
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+
     background-color: var(--color-site-border);
-    color: #fff;
+
     font-family: Roboto;
     font-size: 14px;
     line-height: normal;
-
+    color: #fff;
   }
 }

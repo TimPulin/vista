@@ -1,9 +1,16 @@
 :root {
   --color-blue-dark: #303841;
+  --color-secondary: #4CAF50;
+  --color-secondary-light: rgba(76, 175, 80, .8);
+  --color-secondary-shade: #19721F;
+
   --color-grey-regular: rgba(131, 131, 131, 0.17);
+  --color-grey-light: #ECF1F8;
+  --color-text-secondary: #808080;
+  --color-text-secondary-shade: rgba(0, 0, 0, 0.60);
   --color-site-border: var(--color-blue-dark);
   --color-content-background: var(--color-grey-regular);
-  --border-radius-main: 5px;
+  --border-radius-main: 3px;
 }
 
 body {
