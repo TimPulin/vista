@@ -4,8 +4,6 @@
 }
 
 .ant-form {
-  justify-content: space-between;
-  align-items: center;
 
   .ant-form-item-label>label {
     color: var(--color-text-secondary);
@@ -39,6 +37,9 @@
 }
 
 .ant-form--rolodex {
+  justify-content: space-between;
+  align-items: center;
+
   .ant-picker {
     padding: 9px 12px;
     width: 224px;
@@ -68,6 +69,20 @@
   .ant-btn {
     margin-right: 0;
   }
+}
 
+.form-item-custom {
+  position: relative;
 
+  .ant-form-item-label {
+    position: absolute;
+    top: -20px;
+    height: 19px;
+  }
+
+  .ant-form-item-label>label {
+    height: 19px;
+    font-size: 10px;
+    font-weight: 500;
+  }
 }

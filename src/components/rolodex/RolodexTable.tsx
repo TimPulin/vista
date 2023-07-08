@@ -77,6 +77,8 @@ const data:DataType[] = [
 
 export default function RolodexTable() {
   return (
-    <Table columns={colums} dataSource={data} />
+    <div className="section">
+      <Table columns={colums} dataSource={data} />
+    </div>
   );
 }
