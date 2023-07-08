@@ -1,0 +1,32 @@
+.ant-table-content {
+  font-family: Roboto;
+  font-weight: 500;
+  line-height: normal;
+
+  .ant-table-cell {
+    text-align: center;
+    font-size: 11px;
+    color: var(--color-text-secondary-dark);
+  }
+
+  .ant-table-thead {
+    .ant-table-cell {
+      text-align: center;
+      white-space: nowrap;
+      font-size: 12px;
+    }
+
+  }
+}
+
+.ant-table-wrapper .ant-table-thead>tr>th {
+  background-color: #fff;
+}
+
+.ant-table-wrapper .ant-table-container table>thead>tr:first-child>*:first-child {
+  border-start-start-radius: 0;
+}
+
+.ant-table-wrapper .ant-table-container table>thead>tr:first-child>*:last-child {
+  border-start-end-radius: 0;
+}
