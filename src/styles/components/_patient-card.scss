@@ -1,12 +1,21 @@
 .wrap-form--patient-card {
   padding: 16px 50px 128px 32px;
+
+  .button-wrap {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 43px;
+    width: 172px;
+  }
 }
 
 .client-age {
   display: inline-block;
-  padding: 0 12px;
+  padding: 5px 12px;
   width: 117px;
-  height: 23px;
+  height: 33px;
   border: 1px solid var(--color-element-border);
   border-radius: var(--border-radius-main);
   color: var(--color-text-secondary-shade);

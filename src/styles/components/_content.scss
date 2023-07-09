@@ -3,9 +3,8 @@
 .content {
   grid-area: content;
   position: relative;
-  padding: 25px 10px 10px;
+  padding: 25px 10px 5px;
   background-color: var(--color-content-background);
-  height: 500px;
 
   &__title {
     display: inline-block;
