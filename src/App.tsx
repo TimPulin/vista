@@ -1,13 +1,12 @@
 // eslint-disable-next-line
 import React from 'react';
-// import RolodexPage from './pages/RolodexPage';
-import PatientCardPage from './pages/PatientCardPage';
+import { RouterProvider } from 'react-router-dom';
+import { router } from './router';
 
 function App() {
   return (
     <div className="App">
-      {/* <RolodexPage /> */}
-      <PatientCardPage />
+      <RouterProvider router={router} />
     </div>
   );
 }
