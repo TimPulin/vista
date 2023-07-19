@@ -39,7 +39,6 @@ body {
 
 .ant-divider .ant-divider-inner-text {
   display: inline-block;
-  margin-bottom: 10px;
   padding: 0;
   font-size: 20px;
   font-weight: 700;
@@ -51,4 +50,12 @@ body {
 
 .ant-divider-horizontal.ant-divider-with-text-left::after {
   content: none;
+}
+
+.mb--36 {
+  margin-bottom: 36px;
+}
+
+.mb--40 {
+  margin-bottom: 40px;
 }

@@ -58,185 +58,194 @@ export default function PatientCardForm() {
   return (
     <div className="wrap-form wrap-form--patient-card">
       <Form layout="horizontal" colon={false} className="ant-form--custom">
-        <Row gutter={[31, 35]}>
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Фамилия" />
-            </Form.Item>
+        <Row gutter={[37, 0]}>
+          <Col span={15}>
+            <Row gutter={[31, 50]} className="mb--36">
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Фамилия" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Имя" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Отчество" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item label="Пол*" className="form-item-custom">
+                  <Radio.Group
+                    options={optionsSex}
+                    onChange={onChangePatientSex}
+                    value={patientSex}
+                    optionType="button"
+                    buttonStyle="solid"
+
+                  />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Email" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Телефон" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8} className="ant-col--centered">
+                <Form.Item className="ant-form-item--grow">
+                  <Input placeholder="Рост" />
+                </Form.Item>
+              </Col>
+              <Col span={8} className="ant-col--centered">
+                <Form.Item className="ant-form-item--grow">
+                  <Input placeholder="Вес" />
+                </Form.Item>
+              </Col>
+              <Col span={8}>
+                <Form.Item>
+                  <Select
+                    placeholder="Цвет глаз"
+                    onChange={handleChangeEyesColor}
+                    options={optionsEyesColor}
+
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
+
+            <Divider orientation="left">Адрес регистрации</Divider>
+            <Row gutter={[31, 0]} className="mb--36">
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Полный адрес" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Город" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Почтовый индекс" />
+                </Form.Item>
+              </Col>
+
+            </Row>
+            <Divider orientation="left">Место работы</Divider>
+            <Row gutter={[31, 36]} className="ant-row--vertical-centred">
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Полный адрес" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Город" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Почтовый индекс" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Компания" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Отдел" />
+                </Form.Item>
+              </Col>
+
+              <Col span={8}>
+                <Form.Item>
+                  <Input placeholder="Должность" />
+                </Form.Item>
+              </Col>
+            </Row>
           </Col>
 
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Имя" />
-            </Form.Item>
-          </Col>
-
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Отчество" />
-            </Form.Item>
-          </Col>
-
-          <Col span={6}>
-            <Form.Item className={
-              isPickerFocused
-                ? 'ant-picker--active ant-picker--grand'
-                : 'ant-picker--grand'
-            }
-            >
-              <DatePicker
-                placeholder="Дата рождения"
-                onFocus={() => handelFocusDatePicker(true)}
-                onBlur={() => handelFocusDatePicker(false)}
-              />
-              <span
-                className={
+          {/* вторая колонка */}
+          <Col span={9}>
+            <Row gutter={[31, 30]}>
+              <Col span={16}>
+                <Form.Item className={
                   isPickerFocused
-                    ? 'ant-form__label ant-form__label--active'
-                    : 'ant-form__label'
+                    ? 'ant-picker--active ant-picker--grand'
+                    : 'ant-picker--grand'
                 }
-              >
-                Дата рождения
-              </span>
-            </Form.Item>
-          </Col>
+                >
+                  <DatePicker
+                    placeholder="Дата рождения"
+                    onFocus={() => handelFocusDatePicker(true)}
+                    onBlur={() => handelFocusDatePicker(false)}
+                  />
+                  <span
+                    className={
+                      isPickerFocused
+                        ? 'ant-form__label ant-form__label--active'
+                        : 'ant-form__label'
+                    }
+                  >
+                    Дата рождения
+                  </span>
+                </Form.Item>
+              </Col>
+              <Col span={8}>
+                <div className="client-age">we</div>
+              </Col>
 
-          <Col span={3}>
-            <div className="client-age">we</div>
-          </Col>
-        </Row>
+              <Col span={16}>
+                <Form.Item>
+                  <Select
+                    placeholder="Группа крови"
+                    onChange={handleChangeBloodType}
+                    options={optionsBloodType}
+                  />
+                </Form.Item>
+              </Col>
+            </Row>
 
-        <Row gutter={[31, 35]} className="ant-row--vertical-centred">
-          <Col span={5}>
-            <Form.Item label="Пол*" className="form-item-custom">
-              <Radio.Group
-                options={optionsSex}
-                onChange={onChangePatientSex}
-                value={patientSex}
-                optionType="button"
-                buttonStyle="solid"
+            <Row gutter={[31, 0]} className="ant-row--vertical-centred">
+              {/* <Col span={16}>
+                <Form.Item>
+                  <Select
+                    placeholder="Группа крови"
+                    onChange={handleChangeBloodType}
+                    options={optionsBloodType}
+                  />
+                </Form.Item>
+              </Col> */}
+            </Row>
 
-              />
-            </Form.Item>
-          </Col>
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Email" />
-            </Form.Item>
-          </Col>
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Телефон" />
-            </Form.Item>
-          </Col>
-          <Col span={5}>
-            <Form.Item>
-              <Select
-                placeholder="Группа крови"
-                onChange={handleChangeBloodType}
-                options={optionsBloodType}
-
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={[31, 35]} className="ant-row--vertical-centred">
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Рост" />
-            </Form.Item>
-          </Col>
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Вес" />
-            </Form.Item>
-          </Col>
-          <Col span={5}>
-            <Form.Item>
-              <Select
-                placeholder="Цвет глаз"
-                onChange={handleChangeEyesColor}
-                options={optionsEyesColor}
-
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Divider orientation="left">Адрес регистрации</Divider>
-
-        <Row gutter={[31, 35]} className="ant-row--vertical-centred">
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Полный адрес" />
-            </Form.Item>
-          </Col>
-
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Город" />
-            </Form.Item>
-          </Col>
-
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Почтовый индекс" />
-            </Form.Item>
-          </Col>
-
-        </Row>
-
-        <Divider orientation="left">Место работы</Divider>
-
-        <Row gutter={[31, 35]} className="ant-row--vertical-centred">
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Полный адрес" />
-            </Form.Item>
-          </Col>
-
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Город" />
-            </Form.Item>
-          </Col>
-
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Почтовый индекс" />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={[31, 35]} className="ant-row--vertical-centred">
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Компания" />
-            </Form.Item>
-          </Col>
-
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Отдел" />
-            </Form.Item>
-          </Col>
-
-          <Col span={5}>
-            <Form.Item>
-              <Input placeholder="Должность" />
-            </Form.Item>
-          </Col>
-
-          <Col span={4} offset={5}>
             <div className="button-wrap">
               <Button className="ant-btn-natural">Назад</Button>
               <Button type="primary" danger>Удалить</Button>
               <Button className="ant-btn-secondary">Сохранить</Button>
             </div>
-            test
           </Col>
-
         </Row>
       </Form>
     </div>
