@@ -234,7 +234,7 @@ export default function PatientCardForm() {
               <Button type="primary" danger>Удалить</Button>
               <Button className="ant-btn-secondary">Сохранить</Button>
             </div>
-
+            test
           </Col>
 
         </Row>
