@@ -1,5 +1,5 @@
 import TopBorder from '../components/TopBorder';
-import Navigation from '../components/Navigation';
+import MainMenu from '../components/Menu';
 import Rolodex from '../components/rolodex/Rolodex';
 
 export default function RolodexPage() {
@@ -7,7 +7,7 @@ export default function RolodexPage() {
     <div className="container">
       <div className="grid">
         <TopBorder />
-        <Navigation />
+        <MainMenu />
         <Rolodex />
       </div>
     </div>

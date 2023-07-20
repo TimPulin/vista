@@ -59,3 +59,12 @@ body {
 .mb--40 {
   margin-bottom: 40px;
 }
+
+.svg {
+  width: 15px;
+  height: 15px;
+
+  path {
+    fill: #fff;
+  }
+}

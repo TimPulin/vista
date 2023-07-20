@@ -1,5 +1,5 @@
 import TopBorder from '../components/TopBorder';
-import Navigation from '../components/Navigation';
+import MainMenu from '../components/Menu';
 import PatientCard from '../components/patient-card/PatientCard';
 
 export default function PatientCardPage() {
@@ -7,7 +7,7 @@ export default function PatientCardPage() {
     <div className="container">
       <div className="grid">
         <TopBorder />
-        <Navigation />
+        <MainMenu />
         <PatientCard />
       </div>
     </div>
