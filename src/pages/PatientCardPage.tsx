@@ -1,5 +1,5 @@
 import TopBorder from '../components/TopBorder';
-import MainMenu from '../components/Menu';
+import MainMenu from '../components/MainMenu';
 import PatientCard from '../components/patient-card/PatientCard';
 
 export default function PatientCardPage() {
