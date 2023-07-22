@@ -1,5 +1,6 @@
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import { v4 as getUniqId } from 'uuid';
 
 type DataType = {
   cartNumber: string,
