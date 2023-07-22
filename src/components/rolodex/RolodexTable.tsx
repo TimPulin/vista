@@ -1,6 +1,7 @@
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { v4 as getUniqId } from 'uuid';
+import { getPatients } from '../../connection-with-server/client-to-server';
 
 type DataType = {
   cartNumber: string,
@@ -76,7 +77,10 @@ const data:DataType[] = [
   },
 ];
 
+// TODO описать тип массива patients
 export default function RolodexTable() {
+  getPatients();
+
   return (
     <div className="section">
       <Table columns={colums} dataSource={data} rowKey={() => getUniqId()} />

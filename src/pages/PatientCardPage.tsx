@@ -1,8 +1,10 @@
+import { connect } from 'react-redux';
+import { updateCurrentLinkKey } from '../store/current-link-key-slice';
 import TopBorder from '../components/TopBorder';
 import MainMenu from '../components/MainMenu';
 import PatientCard from '../components/patient-card/PatientCard';
 
-export default function PatientCardPage() {
+function PatientCardPage() {
   return (
     <div className="container">
       <div className="grid">
@@ -13,3 +15,5 @@ export default function PatientCardPage() {
     </div>
   );
 }
+
+export default connect(null, { updateCurrentLinkKey })(PatientCardPage);
