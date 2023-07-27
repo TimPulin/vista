@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import RolodexPage from '../pages/RolodexPage';
-import PatientCardPage from '../pages/PatientCardPage';
+import PatientCardPage, { loader as patientLoader } from '../pages/PatientCardPage';
 
 export const router = createBrowserRouter([
   {
@@ -8,8 +8,11 @@ export const router = createBrowserRouter([
     element: <RolodexPage />,
   },
   {
-    path: 'patient-card',
+    path: 'patient-card/:id',
+    loader: patientLoader,
     element: <PatientCardPage />,
   },
 
 ]);
+
+// TODO сделать страницу "не найдено"

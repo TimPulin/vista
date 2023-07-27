@@ -1,9 +1,12 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { v4 as getUniqId } from 'uuid';
-import { getPatients } from '../../connection-with-server/client-to-server';
+import { getPatientsList, getPatient } from '../../connection-with-server/client-to-server';
 
-type DataType = {
+type PatientType = {
+  id: string,
   cartNumber: string,
   clientFio: string,
   birthday: string,
@@ -15,7 +18,7 @@ type DataType = {
   email: string,
 };
 
-const colums:ColumnsType<DataType> = [
+const colums:ColumnsType<PatientType> = [
   {
     title: '№ Амб. карты',
     dataIndex: 'cartNumber',
@@ -63,27 +66,46 @@ const colums:ColumnsType<DataType> = [
   },
 ];
 
-const data:DataType[] = [
-  {
-    cartNumber: '32134',
-    clientFio: 'Гармидзян Абрам Федорович',
-    birthday: '12.12.1959',
-    eyesColor: 'Серые',
-    sex: 'Мужской',
-    bloodType: 'A+',
-    contacts: '+7(095)3263282',
-    address: 'г.Санкт-Петербург, ул. Савушкина, д.7',
-    email: 'test@vk.com',
-  },
-];
-
-// TODO описать тип массива patients
 export default function RolodexTable() {
-  getPatients();
+  const initialPatientList: PatientType[] = [];
+  const [patientList, updatePatientList] = useState(initialPatientList);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    getPatientsList().then((response) => {
+      const list: PatientType[] = response.map((patient: any) => ({
+        id: patient.id,
+        cartNumber: patient.bank.cardNumber,
+        clientFio: `${patient.firstName} ${patient?.maidenName} ${patient.lastName}`,
+        birthday: patient.birthDate,
+        eyesColor: patient.eyeColor,
+        sex: patient.gender,
+        bloodType: patient.bloodGroup,
+        contacts: patient.phone,
+        address: patient.address.address,
+        email: patient.email,
+      }));
+      updatePatientList(list);
+    });
+  }, [updatePatientList]);
 
   return (
     <div className="section">
-      <Table columns={colums} dataSource={data} rowKey={() => getUniqId()} />
+      <Table
+        columns={colums}
+        dataSource={patientList}
+        rowKey={() => getUniqId()}
+        onRow={(record) => ({
+          onClick: () => {
+            getPatient(record.id);
+            return navigate(`patient-card/${record.id}`);
+          },
+        })}
+      />
+      {/*
+        TODO добавить стилей pointer, :hover
+        документация здесь: https://smartdevpreneur.com/ant-design-table-row-example-height-background-color-and-onclick/
+      */}
     </div>
   );
 }
