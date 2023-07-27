@@ -14,7 +14,6 @@ export async function loader({ params }: any) {
 
 function PatientCardPage() {
   const patient = useLoaderData();
-  type PatientType = typeof patient;
   console.log(patient);
 
   return (
