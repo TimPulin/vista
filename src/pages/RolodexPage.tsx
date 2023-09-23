@@ -1,5 +1,5 @@
 import TopBorder from '../components/TopBorder';
-import MainMenu from '../components/Menu';
+import MainMenu from '../components/MainMenu';
 import Rolodex from '../components/rolodex/Rolodex';
 
 export default function RolodexPage() {

@@ -1,0 +1,23 @@
+:where(.css-dev-only-do-not-override-14wwjjs).ant-menu-dark,
+:where(.css-dev-only-do-not-override-14wwjjs).ant-menu-dark>.ant-menu {
+  background: var(--color-site-border);
+}
+
+:where(.css-dev-only-do-not-override-14wwjjs).ant-menu-vertical .ant-menu-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 34px;
+  border-radius: 0;
+}
+
+:where(.css-dev-only-do-not-override-14wwjjs).ant-menu-dark .ant-menu-item-selected {
+  background-color: #fff;
+
+  .svg>path {
+    fill: var(--color-site-border)
+  }
+}

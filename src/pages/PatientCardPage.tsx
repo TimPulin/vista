@@ -1,8 +1,21 @@
+import { connect } from 'react-redux';
+import { useLoaderData } from 'react-router-dom';
+import { updateCurrentLinkKey } from '../store/current-link-key-slice';
 import TopBorder from '../components/TopBorder';
-import MainMenu from '../components/Menu';
+import MainMenu from '../components/MainMenu';
 import PatientCard from '../components/patient-card/PatientCard';
 
-export default function PatientCardPage() {
+import { getPatient } from '../connection-with-server/client-to-server';
+
+export async function loader({ params }: any) {
+  const patient = await getPatient(params.id);
+  return { patient };
+}
+
+function PatientCardPage() {
+  const patient = useLoaderData();
+  console.log(patient);
+
   return (
     <div className="container">
       <div className="grid">
@@ -13,3 +26,5 @@ export default function PatientCardPage() {
     </div>
   );
 }
+
+export default connect(null, { updateCurrentLinkKey })(PatientCardPage);

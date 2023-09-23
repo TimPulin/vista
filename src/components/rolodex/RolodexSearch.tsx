@@ -1,19 +1,26 @@
 import {
   Button,
-  DatePicker,
+  // DatePicker,
   Form,
   Input,
   InputNumber,
 } from 'antd';
+import type { Dayjs } from 'dayjs';
 import { useState } from 'react';
+import DatePickerCustom from '../custom/DatePickerCustom';
 
 export default function RolodexSearch() {
-  const [datePickerFocused, setDatePickerFocused] = useState(false);
+  const [clientBirthDate, setClientBirthDate] = useState<Date | null>(null);
 
-  function handelFocusDatePicker(isFocused: boolean):void {
-    setDatePickerFocused(isFocused);
-    // TODO сделать проверку на наличие value
-  }
+  const onChangeClientBirthDate = (date:Dayjs | null) => {
+    if (date) {
+      const year = date.year();
+      const month = date.month();
+      const day = date.date();
+      const birthDate = new Date(year, month, day);
+      setClientBirthDate(birthDate);
+    }
+  };
 
   return (
     <div className="section">
@@ -28,22 +35,11 @@ export default function RolodexSearch() {
             <InputNumber />
           </Form.Item>
 
-          <Form.Item>
-            <DatePicker
-              placeholder=""
-              onFocus={() => handelFocusDatePicker(true)}
-              onBlur={() => handelFocusDatePicker(false)}
-            />
-            <span
-              className={
-                datePickerFocused
-                  ? 'ant-form__label ant-form__label--active'
-                  : 'ant-form__label'
-              }
-            >
-              Дата рождения
-            </span>
-          </Form.Item>
+          <DatePickerCustom<Date | null>
+            placeholder="Дата рождения"
+            value={clientBirthDate}
+            onChange={onChangeClientBirthDate}
+          />
 
           <div className="ant-form__group">
             <Form.Item>
