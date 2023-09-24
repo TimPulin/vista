@@ -1,15 +1,15 @@
 import { DatePicker, Form } from 'antd';
 import type { Dayjs } from 'dayjs';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-type DatePickerCustomPropsType<ValueType> = {
+type DatePickerCustomPropsType = {
   formItemClass?: string;
   placeholder: string;
-  value:ValueType;
+  value:Dayjs | null;
   onChange:(value:Dayjs | null) => void;
 };
 
-export default function DatePickerCustom<ValueType>(props: DatePickerCustomPropsType<ValueType>) {
+export default function DatePickerCustom(props: DatePickerCustomPropsType) {
   const {
     formItemClass = '', placeholder, value, onChange,
   } = props;
@@ -23,10 +23,16 @@ export default function DatePickerCustom<ValueType>(props: DatePickerCustomProps
     }
   }
 
+  useEffect(() => {
+    if (value) setDatePickerFocused(true);
+  }, []);
+
   return (
     <Form.Item className={formItemClass}>
       <DatePicker
         placeholder=""
+        format="DD-MM-YYYY"
+        value={value}
         onFocus={() => handelFocusDatePicker(true)}
         onBlur={() => handelFocusDatePicker(false)}
         onChange={onChange}

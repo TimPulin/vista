@@ -10,15 +10,11 @@ import { useState } from 'react';
 import DatePickerCustom from '../custom/DatePickerCustom';
 
 export default function RolodexSearch() {
-  const [clientBirthDate, setClientBirthDate] = useState<Date | null>(null);
+  const [clientBirthDate, setClientBirthDate] = useState<Dayjs | null>(null);
 
   const onChangeClientBirthDate = (date:Dayjs | null) => {
     if (date) {
-      const year = date.year();
-      const month = date.month();
-      const day = date.date();
-      const birthDate = new Date(year, month, day);
-      setClientBirthDate(birthDate);
+      setClientBirthDate(date);
     }
   };
 
@@ -35,7 +31,7 @@ export default function RolodexSearch() {
             <InputNumber />
           </Form.Item>
 
-          <DatePickerCustom<Date | null>
+          <DatePickerCustom
             placeholder="Дата рождения"
             value={clientBirthDate}
             onChange={onChangeClientBirthDate}
