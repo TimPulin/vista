@@ -1,8 +1,11 @@
-export default function TitlePage() {
+type TitlePagePropsType = {
+  title: string;
+};
+
+export default function TitlePage(props: TitlePagePropsType) {
   return (
-  // TODO передать пропсом текст сюда
     <h1 className="content__title">
-      Картотека
+      {props.title}
     </h1>
   );
 }

@@ -3,13 +3,16 @@ import type { Dayjs } from 'dayjs';
 import { useState } from 'react';
 
 type DatePickerCustomPropsType<ValueType> = {
+  formItemClass?: string;
   placeholder: string;
   value:ValueType;
   onChange:(value:Dayjs | null) => void;
 };
 
 export default function DatePickerCustom<ValueType>(props: DatePickerCustomPropsType<ValueType>) {
-  const { placeholder, value, onChange } = props;
+  const {
+    formItemClass = '', placeholder, value, onChange,
+  } = props;
   const [datePickerFocused, setDatePickerFocused] = useState(false);
 
   function handelFocusDatePicker(isFocused: boolean):void {
@@ -21,7 +24,7 @@ export default function DatePickerCustom<ValueType>(props: DatePickerCustomProps
   }
 
   return (
-    <Form.Item>
+    <Form.Item className={formItemClass}>
       <DatePicker
         placeholder=""
         onFocus={() => handelFocusDatePicker(true)}
@@ -40,3 +43,5 @@ export default function DatePickerCustom<ValueType>(props: DatePickerCustomProps
     </Form.Item>
   );
 }
+
+DatePickerCustom.defaultProps = { formItemClass: '' };
