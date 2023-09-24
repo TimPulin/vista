@@ -1,23 +1,15 @@
-import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { getPatientsList, getPatient } from '../../connection-with-server/client-to-server';
+// import { useDispatch } from 'react-redux';
+import { getPatient } from '../../connection-with-server/client-to-server';
+import { TablePatientType } from '../../types/types';
 
-type PatientType = {
-  id: string,
-  cartNumber: string,
-  clientFio: string,
-  birthday: string,
-  eyesColor: string,
-  sex: string,
-  bloodType: string,
-  contacts: string,
-  address: string,
-  email: string,
+export type RolodexTablePropsType = {
+  patientsList: TablePatientType[]
 };
 
-const colums:ColumnsType<PatientType> = [
+const colums:ColumnsType<TablePatientType> = [
   {
     title: '№ Амб. карты',
     dataIndex: 'cartNumber',
@@ -65,34 +57,16 @@ const colums:ColumnsType<PatientType> = [
   },
 ];
 
-export default function RolodexTable() {
-  const initialPatientList: PatientType[] = [];
-  const [patientList, updatePatientList] = useState(initialPatientList);
+export default function RolodexTable(props:RolodexTablePropsType) {
+  const { patientsList } = props;
   const navigate = useNavigate();
-
-  useEffect(() => {
-    getPatientsList().then((response) => {
-      const list: PatientType[] = response.map((patient:any) => ({
-        id: patient.id,
-        cartNumber: patient.bank.cardNumber,
-        clientFio: `${patient.firstName} ${patient?.maidenName} ${patient.lastName}`,
-        birthday: patient.birthDate,
-        eyesColor: patient.eyeColor,
-        sex: patient.gender,
-        bloodType: patient.bloodGroup,
-        contacts: patient.phone,
-        address: patient.address.address,
-        email: patient.email,
-      }));
-      updatePatientList(list);
-    });
-  }, [updatePatientList]);
+  // const dispatch = useDispatch();
 
   return (
     <div className="section">
       <Table
         columns={colums}
-        dataSource={patientList}
+        dataSource={patientsList}
         rowKey={(record) => record.id}
         onRow={(record) => ({
           onClick: () => {

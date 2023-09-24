@@ -25,7 +25,7 @@ export default function DatePickerCustom(props: DatePickerCustomPropsType) {
 
   useEffect(() => {
     if (value) setDatePickerFocused(true);
-  }, []);
+  }, [value]);
 
   return (
     <Form.Item className={formItemClass}>

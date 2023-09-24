@@ -1,13 +1,13 @@
 import TitlePage from '../TitlePage';
 import RolodexSearch from './RolodexSearch';
-import RolodexTable from './RolodexTable';
+import RolodexTable, { RolodexTablePropsType } from './RolodexTable';
 
-export default function Rolodex() {
+export default function Rolodex(props:RolodexTablePropsType) {
   return (
     <div className="content">
       <TitlePage title="Картотека" />
       <RolodexSearch />
-      <RolodexTable />
+      <RolodexTable patientsList={props.patientsList} />
     </div>
   );
 }
