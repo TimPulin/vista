@@ -13,10 +13,13 @@ import type { SelectProps, RadioChangeEvent } from 'antd';
 import { useEffect, useState } from 'react';
 import type { Dayjs } from 'dayjs';
 import DatePickerCustom from '../custom/DatePickerCustom';
+import { PatientType } from '../../types/types';
+
+const MILLSEC_IN_YEAR = 1000 * 60 * 60 * 24 * 365;
 
 const optionsSex = [
-  { label: 'Мужской', value: 1 },
-  { label: 'Женский', value: 0 },
+  { label: 'Мужской', value: 'male' },
+  { label: 'Женский', value: 'female' },
 ];
 
 const optionsEyesColor:SelectProps['options'] = [
@@ -33,45 +36,96 @@ const optionsBloodType:SelectProps['options'] = [
 ];
 
 type PatientCardFormPropsType = {
-  surname: string;
+  patient: PatientType | null;
 };
 
 export default function PatientCardForm(props: PatientCardFormPropsType) {
-  const [patientSurname, setPatientSurname] = useState<string | undefined>(undefined);
+  const { patient } = props;
+  console.log(patient);
+
+  const [patientLastName, setPatientLastName] = useState<string | undefined>(undefined);
   const [patientName, setPatientName] = useState<string | undefined>(undefined);
   const [patientMiddleName, setPatientMiddleName] = useState<string | undefined>(undefined);
   const [clientBirthDate, setClientBirthDate] = useState<Date | null>(null);
-  const [patientSex, setPatientSex] = useState(1);
+  const [patientSex, setPatientSex] = useState<string | undefined>(undefined);
+
   const [patientEmail, setPatientEmail] = useState<string | undefined>(undefined);
   const [patientPhone, setPatientPhone] = useState<string | undefined>(undefined);
-  const [patientBloodType, setPatientBloodType] = useState<string | null>(null);
+
+  const [patientBloodGroup, setPatientBloodGroup] = useState<string | null>(null);
   const [patientHeight, setPatientHeight] = useState<number | null>(null);
   const [patientWeight, setPatientWeight] = useState<number | null>(null);
   const [patientEyeColor, setPatientEyeColor] = useState<string | undefined>(undefined);
+
   const [patientHomeAddress, setPatientHomeAddress] = useState<string | undefined>(undefined);
   const [patientHomeCity, setPatientHomeCity] = useState<string | undefined>(undefined);
-  const [patientHomePostIndex, setPatientHomePostIndex] = useState<number | null>(null);
+  const [patientHomePostalCode, setPatientHomePostalCode] = useState<string | undefined>(undefined);
+
   const [patientWorkAddress, setPatientWorkAddress] = useState<string | undefined>(undefined);
   const [patientWorkCity, setPatientWorkCity] = useState<string | undefined>(undefined);
-  const [patientWorkPostIndex, setPatientWorkPostIndex] = useState<number | null>(null);
+  const [patientWorkPostalCode, setPatientWorkPostalCode] = useState<string | undefined>(undefined);
   const [patientWorkCompany, setPatientWorkCompany] = useState<string | undefined>(undefined);
   const [patientWorkDepartment, setPatientWorkDepartment] = useState<string | undefined>(undefined);
   const [patientWorkPosition, setPatientWorkPosition] = useState<string | undefined>(undefined);
 
-  //   const onChangePatientName = (event:ChangeEventHandler<HTMLInputElement>) => {
-  //     setPatientName(event.value);
-  //   };
-
-  //   const onChangePatientMiddlename = (event:ChangeEventHandler<HTMLInputElement>) => {
-  //     setPatientMiddleName(event.value);
-  //   };
-
   useEffect(() => {
-    setPatientSurname(props.surname);
+    if (patient) {
+      setPatientLastName(patient.lastName);
+      setPatientName(patient.firstName);
+      setPatientMiddleName(patient.maidenName);
+      setClientBirthDate(new Date(patient.birthDate));
+      setPatientSex(patient.gender);
+      setPatientEmail(patient.email);
+      setPatientPhone(patient.phone);
+      setPatientBloodGroup(patient.bloodGroup);
+      setPatientHeight(patient.height);
+      setPatientWeight(patient.weight);
+      setPatientEyeColor(patient.eyeColor);
+      setPatientHomeAddress(patient.address.address);
+      setPatientHomeCity(patient.address.city);
+      setPatientHomePostalCode(patient.address.postalCode);
+      setPatientWorkAddress(patient.company.address.address);
+      setPatientWorkCity(patient.company.address.city);
+      setPatientWorkPostalCode(patient.company.address.postalCode);
+      setPatientWorkCompany(patient.company.name);
+      setPatientWorkDepartment(patient.company.department);
+      setPatientWorkPosition(patient.company.title);
+    }
   }, []);
+
+  const countAge = () => {
+    let age = null;
+    if (clientBirthDate) {
+      const currentDate = Date.now();
+      age = Math.round((currentDate - clientBirthDate.getTime()) / (MILLSEC_IN_YEAR));
+    }
+    return age;
+  };
+
+  const getPatientAge = () => {
+    const WORD_LET = 'лет';
+    const WORD_GOD = 'год';
+    const WORD_GODA = 'года';
+
+    const age = countAge();
+    let ageLastTwoDigits = null;
+    let ageLastOneDigit = null;
+    let word = '';
+    if (age) {
+      ageLastTwoDigits = age % 100;
+      ageLastOneDigit = age % 10;
+      if (ageLastTwoDigits >= 11 && ageLastTwoDigits <= 14) word = WORD_LET;
+      else if (ageLastOneDigit === 1) word = WORD_GOD;
+      else if (ageLastOneDigit >= 2 && ageLastOneDigit <= 4) word = WORD_GODA;
+      else word = WORD_LET;
+    }
+    return `${age} ${word}`;
+  };
 
   const onChangeClientBirthDate = (date:Dayjs | null) => {
     if (date) {
+      console.log(date, typeof date);
+
       const year = date.year();
       const month = date.month();
       const day = date.date();
@@ -94,8 +148,8 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
                 <Form.Item>
                   <Input
                     placeholder="Фамилия"
-                    value={patientSurname}
-                    onChange={(event) => setPatientSurname(event.target.value)}
+                    value={patientLastName}
+                    onChange={(event) => setPatientLastName(event.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -216,15 +270,10 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
 
               <Col span={8}>
                 <Form.Item>
-                  <InputNumber
+                  <Input
                     placeholder="Почтовый индекс"
-                    value={patientHomePostIndex}
-                    onKeyDown={(event) => {
-                      if (!/[0-9]/.test(event.key)) {
-                        event.preventDefault();
-                      }
-                    }}
-                    onChange={(value) => setPatientHomePostIndex(value)}
+                    value={patientHomePostalCode}
+                    onChange={(event) => setPatientHomePostalCode(event.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -254,15 +303,10 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
 
               <Col span={8}>
                 <Form.Item>
-                  <InputNumber
+                  <Input
                     placeholder="Почтовый индекс"
-                    value={patientWorkPostIndex}
-                    onKeyDown={(event) => {
-                      if (!/[0-9]/.test(event.key)) {
-                        event.preventDefault();
-                      }
-                    }}
-                    onChange={(value) => setPatientWorkPostIndex(value)}
+                    value={patientWorkPostalCode}
+                    onChange={(event) => setPatientWorkPostalCode(event.target.value)}
                   />
                 </Form.Item>
               </Col>
@@ -303,7 +347,7 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
           <Col span={9}>
             <Row gutter={[31, 30]}>
               <Col span={16}>
-                <DatePickerCustom<Date | null>
+                <DatePickerCustom<Dayjs | null>
                   formItemClass="ant-picker--grand"
                   placeholder="Дата рождения"
                   value={clientBirthDate}
@@ -311,7 +355,7 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
                 />
               </Col>
               <Col span={8}>
-                <div className="client-age">we</div>
+                <div className="client-age">{getPatientAge()}</div>
               </Col>
 
               <Col span={16}>
@@ -319,8 +363,8 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
                   <Select
                     placeholder="Группа крови"
                     options={optionsBloodType}
-                    value={patientBloodType}
-                    onChange={(value) => setPatientBloodType(value)}
+                    value={patientBloodGroup}
+                    onChange={(value) => setPatientBloodGroup(value)}
                   />
                 </Form.Item>
               </Col>
@@ -337,63 +381,3 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
     </div>
   );
 }
-
-//   const onChangePatientEmail = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientEmail(event.value);
-//   };
-
-//   const onChangePatientPhone = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientPhone(event.value);
-//   };
-
-//   const onChangePatientBloodGroup = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientBloodGroup(event.value);
-//   };
-
-//   const onChangePatientHeight = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientHeight(event.value);
-//   };
-
-//   const onChangePatientWeight = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientWeight(event.value);
-//   };
-
-//   const onChangePatientEyeColor = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientEyeColor(event.value);
-//   };
-
-//   const onChangePatientHomeAddress = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientHomeAddress(event.value);
-//   };
-
-//   const onChangePatientHomeCity = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientHomeCity(event.value);
-//   };
-
-//   const onChangePatientHomePostIndex = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientHomePostIndex(event.value);
-//   };
-
-//   const onChangePatientWorkAddress = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientWorkAddress(event.value);
-//   };
-
-//   const onChangePatientWorkCity = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientWorkCity(event.value);
-//   };
-
-//   const onChangePatientWorkPostIndex = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientWorkPostIndex(event.value);
-//   };
-
-//   const onChangePatientWorkCompany = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientWorkCompany(event.value);
-//   };
-
-//   const onChangePatientWorkDepartment = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientWorkDepartment(event.value);
-//   };
-
-//   const onChangePatientWorkPosition = (event:React.ChangeEventHandler<HTMLInputElement>) => {
-//     setPatientWorkPosition(event.value);
-//   };

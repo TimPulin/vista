@@ -1,3 +1,5 @@
+import { LoaderFunction } from 'react-router-dom';
+
 type AddressType = {
   address: string,
   city: string,
@@ -45,3 +47,5 @@ export type PatientType = {
   username: string,
   weight: number,
 };
+
+export type LoaderData<TLoaderFn extends LoaderFunction> = Awaited<ReturnType<TLoaderFn>> extends Response | infer D ? D : never;

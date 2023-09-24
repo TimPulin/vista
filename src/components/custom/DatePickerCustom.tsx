@@ -27,6 +27,7 @@ export default function DatePickerCustom<ValueType>(props: DatePickerCustomProps
     <Form.Item className={formItemClass}>
       <DatePicker
         placeholder=""
+        format="DD-MM-YYYY"
         onFocus={() => handelFocusDatePicker(true)}
         onBlur={() => handelFocusDatePicker(false)}
         onChange={onChange}
