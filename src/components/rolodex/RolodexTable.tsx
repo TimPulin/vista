@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { v4 as getUniqId } from 'uuid';
 import { getPatientsList, getPatient } from '../../connection-with-server/client-to-server';
 
 type PatientType = {
@@ -73,7 +72,7 @@ export default function RolodexTable() {
 
   useEffect(() => {
     getPatientsList().then((response) => {
-      const list: PatientType[] = response.map((patient: any) => ({
+      const list: PatientType[] = response.map((patient:any) => ({
         id: patient.id,
         cartNumber: patient.bank.cardNumber,
         clientFio: `${patient.firstName} ${patient?.maidenName} ${patient.lastName}`,
@@ -94,7 +93,7 @@ export default function RolodexTable() {
       <Table
         columns={colums}
         dataSource={patientList}
-        rowKey={() => getUniqId()}
+        rowKey={(record) => record.id}
         onRow={(record) => ({
           onClick: () => {
             getPatient(record.id);

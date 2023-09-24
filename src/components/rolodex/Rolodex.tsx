@@ -5,7 +5,7 @@ import RolodexTable from './RolodexTable';
 export default function Rolodex() {
   return (
     <div className="content">
-      <TitlePage />
+      <TitlePage title="Картотека" />
       <RolodexSearch />
       <RolodexTable />
     </div>

@@ -40,6 +40,7 @@
 
   /* стили общие */
   .ant-form-item-control-input-content .ant-radio-button-wrapper,
+  .ant-form-item-control-input-content .ant-input-number,
   .ant-select:not(.ant-select-customize-input) .ant-select-selector,
   .ant-picker,
   input {
@@ -49,6 +50,10 @@
     font-style: normal;
     letter-spacing: 0.15px;
     height: 30px;
+  }
+
+  .ant-input-number {
+    width: 100%;
   }
 
   .ant-picker .ant-picker-input>input,
@@ -119,7 +124,7 @@
 
     .ant-form__label {
       top: 3px;
-      z-index: -10;
+      left: 10px;
     }
   }
 
@@ -160,6 +165,10 @@
   }
 
   .ant-form-item--patient {
+    .ant-input-number {
+      width: 100%;
+    }
+
     .ant-input {
       width: 220px;
     }
@@ -176,7 +185,7 @@
   }
 }
 
-// лейбл на полем
+// лейбл над полем
 .form-item-custom {
   position: relative;
 

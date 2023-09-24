@@ -21,7 +21,7 @@ function PatientCardPage() {
       <div className="grid">
         <TopBorder />
         <MainMenu />
-        <PatientCard />
+        <PatientCard title="Карточка пациента" />
       </div>
     </div>
   );
