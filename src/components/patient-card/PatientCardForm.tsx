@@ -12,10 +12,9 @@ import {
 import type { SelectProps, RadioChangeEvent } from 'antd';
 import { useEffect, useState } from 'react';
 import type { Dayjs } from 'dayjs';
+import dayjs from 'dayjs';
 import DatePickerCustom from '../custom/DatePickerCustom';
 import { PatientType } from '../../types/types';
-
-const MILLSEC_IN_YEAR = 1000 * 60 * 60 * 24 * 365;
 
 const optionsSex = [
   { label: 'Мужской', value: 'male' },
@@ -46,7 +45,7 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
   const [patientLastName, setPatientLastName] = useState<string | undefined>(undefined);
   const [patientName, setPatientName] = useState<string | undefined>(undefined);
   const [patientMiddleName, setPatientMiddleName] = useState<string | undefined>(undefined);
-  const [clientBirthDate, setClientBirthDate] = useState<Date | null>(null);
+  const [clientBirthDate, setClientBirthDate] = useState<Dayjs | null>(null);
   const [patientSex, setPatientSex] = useState<string | undefined>(undefined);
 
   const [patientEmail, setPatientEmail] = useState<string | undefined>(undefined);
@@ -73,7 +72,7 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
       setPatientLastName(patient.lastName);
       setPatientName(patient.firstName);
       setPatientMiddleName(patient.maidenName);
-      setClientBirthDate(new Date(patient.birthDate));
+      setClientBirthDate(dayjs(new Date(patient.birthDate)));
       setPatientSex(patient.gender);
       setPatientEmail(patient.email);
       setPatientPhone(patient.phone);
@@ -90,14 +89,15 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
       setPatientWorkCompany(patient.company.name);
       setPatientWorkDepartment(patient.company.department);
       setPatientWorkPosition(patient.company.title);
+      console.log(dayjs(new Date(patient.birthDate)));
     }
   }, []);
 
   const countAge = () => {
     let age = null;
     if (clientBirthDate) {
-      const currentDate = Date.now();
-      age = Math.round((currentDate - clientBirthDate.getTime()) / (MILLSEC_IN_YEAR));
+      const currentDate = dayjs(Date.now());
+      age = currentDate.diff(clientBirthDate, 'years');
     }
     return age;
   };
@@ -124,13 +124,7 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
 
   const onChangeClientBirthDate = (date:Dayjs | null) => {
     if (date) {
-      console.log(date, typeof date);
-
-      const year = date.year();
-      const month = date.month();
-      const day = date.date();
-      const birthDate = new Date(year, month, day);
-      setClientBirthDate(birthDate);
+      setClientBirthDate(date);
     }
   };
 
@@ -347,7 +341,7 @@ export default function PatientCardForm(props: PatientCardFormPropsType) {
           <Col span={9}>
             <Row gutter={[31, 30]}>
               <Col span={16}>
-                <DatePickerCustom<Dayjs | null>
+                <DatePickerCustom
                   formItemClass="ant-picker--grand"
                   placeholder="Дата рождения"
                   value={clientBirthDate}
