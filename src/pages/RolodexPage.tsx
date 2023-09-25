@@ -1,6 +1,5 @@
 import { useLoaderData, LoaderFunction } from 'react-router-dom';
-import TopBorder from '../components/TopBorder';
-import MainMenu from '../components/MainMenu';
+
 import Rolodex from '../components/rolodex/Rolodex';
 import { getPatientsList } from '../connection-with-server/client-to-server';
 import { LoaderData, PatientType } from '../types/types';
@@ -25,12 +24,6 @@ export default function RolodexPage() {
     email: patient.email,
   }));
   return (
-    <div className="container">
-      <div className="grid">
-        <TopBorder />
-        <MainMenu />
-        <Rolodex patientsList={tablePatientList} />
-      </div>
-    </div>
+    <Rolodex patientsList={tablePatientList} />
   );
 }
