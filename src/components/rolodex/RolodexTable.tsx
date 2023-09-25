@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
-import { Table } from 'antd';
+import { useState } from 'react';
 import type { ColumnsType } from 'antd/es/table';
-// import { useDispatch } from 'react-redux';
-import { getPatient } from '../../connection-with-server/client-to-server';
+import { Table } from 'antd';
+import { useDispatch } from 'react-redux';
+import { updateCurrentPatientId } from '../../store/current-patient-id-slice';
 import { TablePatientType } from '../../types/types';
 
 export type RolodexTablePropsType = {
@@ -59,8 +59,14 @@ const colums:ColumnsType<TablePatientType> = [
 
 export default function RolodexTable(props:RolodexTablePropsType) {
   const { patientsList } = props;
-  const navigate = useNavigate();
-  // const dispatch = useDispatch();
+  const [selectedRowIndex, setSelectedRowIndex] = useState<number | undefined>(undefined);
+  const dispatch = useDispatch();
+
+  const onRowClick = (rowIndex: number | undefined) => {
+    setSelectedRowIndex(rowIndex);
+  };
+
+  const rowClassActive = (rowIndex: number | undefined) => (rowIndex === selectedRowIndex ? 'row-active' : '');
 
   return (
     <div className="section">
@@ -68,13 +74,15 @@ export default function RolodexTable(props:RolodexTablePropsType) {
         columns={colums}
         dataSource={patientsList}
         rowKey={(record) => record.id}
-        onRow={(record) => ({
+        rowClassName={(_, rowIndex) => rowClassActive(rowIndex)}
+        onRow={(record, rowIndex) => ({
           onClick: () => {
-            getPatient(record.id);
-            return navigate(`patient-card/${record.id}`);
+            onRowClick(rowIndex);
+            dispatch(updateCurrentPatientId(record.id));
           },
         })}
       />
+
       {/*
         TODO добавить стилей pointer, :hover
         документация здесь: https://smartdevpreneur.com/ant-design-table-row-example-height-background-color-and-onclick/

@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 type ActionType = {
   type: string;
-  payload: number | null;
+  payload: string | null;
 };
 
 type CurrentPatientIdType = {
-  value: number | null;
+  value: string | null;
 };
 
 const initialState: CurrentPatientIdType = {
