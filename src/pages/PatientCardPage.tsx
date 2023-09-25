@@ -16,7 +16,6 @@ export const loader = (async ({ params }: any) => {
 
 function PatientCardPage() {
   const patient = useLoaderData() as LoaderData<typeof loader>;
-  console.log(patient);
 
   return (
     <div className="container">

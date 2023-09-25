@@ -15,7 +15,11 @@
       white-space: nowrap;
       font-size: 12px;
     }
+  }
 
+  .row-active,
+  .row-active:hover {
+    background-color: var(--color-grey-lighter);
   }
 }
 

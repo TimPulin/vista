@@ -48,4 +48,17 @@ export type PatientType = {
   weight: number,
 };
 
+export type TablePatientType = {
+  id: string,
+  cartNumber: string,
+  clientFio: string,
+  birthday: string,
+  eyesColor: string,
+  sex: string,
+  bloodType: string,
+  contacts: string,
+  address: string,
+  email: string,
+};
+
 export type LoaderData<TLoaderFn extends LoaderFunction> = Awaited<ReturnType<TLoaderFn>> extends Response | infer D ? D : never;
