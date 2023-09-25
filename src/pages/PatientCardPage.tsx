@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 import { useLoaderData, LoaderFunction } from 'react-router-dom';
 import { updateCurrentLinkKey } from '../store/current-link-key-slice';
-import TopBorder from '../components/TopBorder';
-import MainMenu from '../components/MainMenu';
 import PatientCard from '../components/patient-card/PatientCard';
 import { LoaderData } from '../types/types';
 // import { PatientType } from '../types/types';
@@ -18,16 +16,10 @@ function PatientCardPage() {
   const patient = useLoaderData() as LoaderData<typeof loader>;
 
   return (
-    <div className="container">
-      <div className="grid">
-        <TopBorder />
-        <MainMenu />
-        <PatientCard
-          title="Карточка пациента"
-          patient={patient.patient}
-        />
-      </div>
-    </div>
+    <PatientCard
+      title="Карточка пациента"
+      patient={patient.patient}
+    />
   );
 }
 
