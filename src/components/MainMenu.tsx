@@ -1,36 +1,63 @@
-import { useSelector, connect } from 'react-redux';
-import { Menu } from 'antd';
-import { Link } from 'react-router-dom';
-import { updateCurrentLinkKey } from '../store/current-link-key-slice';
-import { RootStateType } from '../store';
+import { connect } from 'react-redux';
+import { Menu, message } from 'antd';
+import { Link, useNavigate } from 'react-router-dom';
+import { updateCurrentLinkKey, UpdateCurrentLinkKeyType } from '../store/slices/current-link-key-slice';
 
 import IconCard from './icons/card-icon';
 import IconFolder from './icons/folder-icon';
+import { useCurrentPatientId, useCurrentLinkKey } from '../store/hooks';
 
-function MainMenu(props: any) {
-  const currentLinkKey = useSelector((store: RootStateType) => store.currentLinkKey.value);
+type MainMenuPropsType = {
+  updateCurrentLinkKey:UpdateCurrentLinkKeyType;
+};
 
-  const handleClick = (key: string) => {
-    props.updateCurrentLinkKey(key);
+/*
+TODO
+  всплывающие подсказки для ссылок
+  поставить updateCurrentLinkKey в useEffect на страницах
+*/
+
+function MainMenu(props: MainMenuPropsType) {
+  const navigate = useNavigate();
+  const currentLinkKey = useCurrentLinkKey();
+  const currentPatientId = useCurrentPatientId();
+  const [messageApi, contextHolder] = message.useMessage();
+  const warningMessage = (text:string) => {
+    messageApi.open({
+      type: 'warning',
+      content: text,
+    });
+  };
+
+  const linkToPatientCard = () => {
+    props.updateCurrentLinkKey('1');
+    if (currentPatientId === null) {
+      warningMessage('Для открытия карты пациента, пожалуйста, выберите пациента из таблицы');
+    } else {
+      navigate(`/patient-card/${currentPatientId}`);
+    }
   };
 
   return (
-    <Menu
-      defaultSelectedKeys={[currentLinkKey]}
-      theme="dark"
-    >
-      <Menu.Item key={1}>
-        <Link to="/patient-card" onClick={() => handleClick('1')}>
-          <IconCard />
-        </Link>
-      </Menu.Item>
-      <Menu.Item key={2} onClick={() => handleClick('2')}>
-        <Link to="/">
-          <IconFolder />
-        </Link>
-      </Menu.Item>
-    </Menu>
-
+    <>
+      {contextHolder}
+      <Menu
+        defaultSelectedKeys={[currentLinkKey]}
+        theme="dark"
+      >
+        <Menu.Item key={1}>
+          {/* eslint-disable-next-line */}
+          <a onClick={linkToPatientCard}>
+            <IconCard />
+          </a>
+        </Menu.Item>
+        <Menu.Item key={2} onClick={() => props.updateCurrentLinkKey('2')}>
+          <Link to="/">
+            <IconFolder />
+          </Link>
+        </Menu.Item>
+      </Menu>
+    </>
   );
 }
 

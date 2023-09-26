@@ -1,15 +1,17 @@
 import { connect } from 'react-redux';
-import { useLoaderData, LoaderFunction } from 'react-router-dom';
-import { updateCurrentLinkKey } from '../store/current-link-key-slice';
+import { useLoaderData, LoaderFunction, LoaderFunctionArgs } from 'react-router-dom';
+import { updateCurrentLinkKey } from '../store/slices/current-link-key-slice';
 import PatientCard from '../components/patient-card/PatientCard';
-import { LoaderData } from '../types/types';
-// import { PatientType } from '../types/types';
+import { LoaderData, PatientType } from '../types/types';
 
 import { getPatient } from '../connection-with-server/client-to-server';
 
-export const loader = (async ({ params }: any) => {
-  const patient = await getPatient(params.id);
-  return { patient };
+export const loader = (async ({ params }: LoaderFunctionArgs):Promise<PatientType> => {
+  let patient;
+  if (params.id) {
+    patient = await getPatient(params.id);
+  }
+  return patient;
 }) satisfies LoaderFunction;
 
 function PatientCardPage() {
@@ -18,7 +20,7 @@ function PatientCardPage() {
   return (
     <PatientCard
       title="Карточка пациента"
-      patient={patient.patient}
+      patient={patient}
     />
   );
 }

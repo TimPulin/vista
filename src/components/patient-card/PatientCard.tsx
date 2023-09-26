@@ -1,4 +1,4 @@
-import TitlePage from '../TitlePage';
+import TitlePage from '../PageTitle';
 import PatientCardForm from './PatientCardForm';
 import { PatientType } from '../../types/types';
 

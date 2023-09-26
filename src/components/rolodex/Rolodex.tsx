@@ -1,4 +1,4 @@
-import TitlePage from '../TitlePage';
+import TitlePage from '../PageTitle';
 import RolodexSearch from './RolodexSearch';
 import RolodexTable, { RolodexTablePropsType } from './RolodexTable';
 
