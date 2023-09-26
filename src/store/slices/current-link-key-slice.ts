@@ -25,6 +25,7 @@ export const updateCurrentLinkKeySlice = createSlice({
 
 export const { updateCurrentLinkKey } = updateCurrentLinkKeySlice.actions;
 export const updateCurrentLinkKeyReducer = updateCurrentLinkKeySlice.reducer;
+export type UpdateCurrentLinkKeyType = (key: string) => void;
 export type UpdateCurrentLinkKeyReducerType = {
   updateCurrentLinkKey: (state: CurrentLinkKeyType, action: ActionType) => void;
 };

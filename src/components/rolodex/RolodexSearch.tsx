@@ -7,15 +7,21 @@ import {
 } from 'antd';
 import type { Dayjs } from 'dayjs';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import DatePickerCustom from '../custom/DatePickerCustom';
 
 export default function RolodexSearch() {
   const [clientBirthDate, setClientBirthDate] = useState<Dayjs | null>(null);
+  const navigate = useNavigate();
 
   const onChangeClientBirthDate = (date:Dayjs | null) => {
     if (date) {
       setClientBirthDate(date);
     }
+  };
+
+  const linkToNewPatientCard = () => {
+    navigate('/new-patient-card');
   };
 
   return (
@@ -43,7 +49,7 @@ export default function RolodexSearch() {
             </Form.Item>
 
             <Form.Item>
-              <Button className="ant-btn-secondary">Новый пациент</Button>
+              <Button onClick={linkToNewPatientCard} className="ant-btn-secondary">Новый пациент</Button>
             </Form.Item>
           </div>
         </Form>

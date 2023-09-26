@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ColumnsType } from 'antd/es/table';
 import { Table } from 'antd';
 import { useDispatch } from 'react-redux';
-import { updateCurrentPatientId } from '../../store/current-patient-id-slice';
+import { updateCurrentPatientId } from '../../store/slices/current-patient-id-slice';
 import { TablePatientType } from '../../types/types';
 
 export type RolodexTablePropsType = {
@@ -56,6 +56,11 @@ const colums:ColumnsType<TablePatientType> = [
     key: 'email',
   },
 ];
+/*
+TODO
+  добавить стили для :active строки таблицы
+  сделать выделение выбранного пациента после возвращения на страницу
+*/
 
 export default function RolodexTable(props:RolodexTablePropsType) {
   const { patientsList } = props;
